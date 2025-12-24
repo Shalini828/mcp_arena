@@ -1,439 +1,316 @@
 # mcp_arena
 
-**mcp_arena** is an opinionated Python library for building **MCP (Model Context Protocol) servers** with minimal setup and strong defaults.
+[![PyPI version](https://badge.fury.io/py/mcp-arena.svg)](https://badge.fury.io/py/mcp-arena)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-It provides **ready-to-use MCP servers** (called *presets*) that already include **domain-specific tools**, authentication, and configuration, plus a **comprehensive agent system** with built-in reasoning, reflection, and planning capabilities.
+**mcp_arena** is a production-ready Python library for building **MCP (Model Context Protocol) servers** with intelligent agent orchestration and domain-specific presets.
 
-> 🔹 **MCP server is the core abstraction**
-> 🔹 **Agents provide intelligent orchestration**
-> 🔹 **Presets ship with tools by default**
-> 🔹 **Built on SOLID architecture principles**
+## ✨ Features
 
----
+- 🚀 **Ready-to-use MCP servers** for popular platforms (GitHub, Slack, Notion, AWS, etc.)
+- 🤖 **Intelligent agents** with reflection, planning, and routing capabilities
+- 🔧 **Zero-configuration setup** for common use cases
+- 🏗️ **Extensible architecture** built on SOLID principles
+- 📦 **Modular design** - use only what you need
 
-## Why mcp_arena?
+## 🚀 Quick Start
 
-Most MCP examples start from a blank server and ask you to:
+### Installation
 
-* implement protocol wiring
-* manually define every tool
-* handle auth and schemas
-* glue everything together
-
-**mcp_arena flips this model.**
-
-You start with a **fully functional MCP server** and customize only what you need.
-
----
-
-## Core Concept
-
-### 1. MCP Server (Core)
-
-The MCP server is responsible for:
-
-* exposing tools and resources
-* handling authentication
-* managing MCP protocol & transport
-* registering capabilities
-
-This layer works **independently of agents**.
-
----
-
-### 2. Presets (Batteries Included)
-
-Presets are **ready-made MCP servers** for common platforms.
-
-Each preset:
-
-* comes with **most commonly used tools built in**
-* handles authentication automatically
-* follows best practices for that platform
-
-## Available Presets
-
-### 🚀 Development Platforms
-- **`GithubMCPServer`** - GitHub repositories, issues, PRs, workflows
-- **`GitLabMCPServer`** - GitLab projects, CI/CD, issues
-- **`BitbucketMCPServer`** - Bitbucket repositories and pipelines
-
-### 📊 Data & Storage
-- **`PostgresMCPServer`** - PostgreSQL database operations
-- **`MongoDBMCPServer`** - MongoDB document operations
-- **`RedisMCPServer`** - Redis cache and data structures
-- **`VectorDBMCPServer`** - Vector database operations
-
-### 🤝 Communication
-- **`SlackMCPServer`** - Slack channels, messages, workflows
-- **`DiscordMCPServer`** - Discord servers and channels
-- **`TeamsMCPServer`** - Microsoft Teams integration
-
-### 📝 Productivity
-- **`NotionMCPServer`** - Notion databases, pages, blocks
-- **`ConfluenceMCPServer`** - Confluence spaces and pages
-- **`JiraMCPServer`** - Jira projects, issues, workflows
-
-### ☁️ Cloud Services
-- **`S3MCPServer`** - AWS S3 storage operations
-- **`AzureBlobMCPServer`** - Azure Blob storage
-- **`GCStorageMCPServer`** - Google Cloud Storage
-
-### 🖥️ System Operations
-- **`LocalOperationsMCPServer`** - File system and system operations
-- **`DockerMCPServer`** - Docker container management
-- **`KubernetesMCPServer`** - Kubernetes cluster operations
-
----
-
-## Agent Types
-
-### 🤔 Reflection Agent
-- **Purpose**: Self-improving responses through iterative refinement
-- **Use Case**: Quality-critical tasks requiring precision
-- **Features**: Multi-pass refinement, error correction
-
-### ⚡ ReAct Agent  
-- **Purpose**: Systematic reasoning and acting
-- **Use Case**: Complex problem-solving workflows
-- **Features**: Step-by-step reasoning, tool orchestration
-
-### 📋 Planning Agent
-- **Purpose**: Goal decomposition and execution planning
-- **Use Case**: Multi-step complex tasks
-- **Features**: Task breakdown, progress tracking
-
-### 🎯 Router Agent
-- **Purpose**: Dynamic agent selection and routing
-- **Use Case**: Multi-domain task handling
-- **Features**: Smart routing, load balancing
-
----
-
-### 3. Agent System (Intelligent Orchestration)
-
-The agent system provides **intelligent tool orchestration** with multiple built-in agent types:
-
-* **Reflection Agent** - Self-improving through iterative refinement
-* **ReAct Agent** - Reasoning and acting cycle
-* **Planning Agent** - Goal decomposition and step-by-step execution
-* **Router Agent** - Dynamic agent selection and task routing
-
-Agents:
-
-* use existing MCP tools intelligently
-* perform complex reasoning and planning
-* handle multi-step workflows
-* are completely optional but powerful
-
-You can run:
-
-* MCP server **without agents** (direct tool access)
-* MCP server **with single or multiple agents**
-* **Agent-only mode** for orchestration tasks
-
-## Quick Start Guide
-
-### 1. Install mcp_arena
 ```bash
-pip install mcp_arena
+# Core library
+pip install mcp-arena
+
+# With specific presets
+pip install mcp-arena[github,slack,notion]
+
+# All presets
+pip install mcp-arena[all]
 ```
 
-### 2. Choose Your Approach
+### Basic Usage
 
-**🚀 Preset (Recommended for quick start)**
 ```python
 from mcp_arena.presets.github import GithubMCPServer
 
-server = GithubMCPServer(token="your_token")
-server.run()
+# Zero-config GitHub MCP server
+server = GithubMCPServer(token="your_github_token")
+server.run(port=8000)
 ```
 
-**🤖 Agent-Enhanced (For intelligent orchestration)**
+### With Agent Orchestration
+
 ```python
 from mcp_arena.presets.github import GithubMCPServer
 from mcp_arena.agent.react import ReActAgent
 
+# Add intelligent agent
 agent = ReActAgent(name="github-agent")
 server = GithubMCPServer(token="your_token", agents=[agent])
 server.run()
 ```
 
-**🔧 Custom Server (For full control)**
+## 📚 Available Presets
+
+### Development Platforms
+- **GitHub** - Repositories, issues, PRs, workflows
+- **GitLab** - Projects, CI/CD, issues  
+- **Bitbucket** - Repositories and pipelines
+
+### Data & Storage
+- **PostgreSQL** - Database operations
+- **MongoDB** - Document operations
+- **Redis** - Cache and data structures
+- **VectorDB** - Vector database operations
+
+### Communication
+- **Slack** - Channels, messages, workflows
+- **Discord** - Servers and channels
+- **Teams** - Microsoft Teams integration
+
+### Productivity
+- **Notion** - Databases, pages, blocks
+- **Confluence** - Spaces and pages
+- **Jira** - Projects, issues, workflows
+
+### Cloud Services
+- **AWS S3** - Storage operations
+- **Azure Blob** - Azure storage
+- **Google Cloud Storage** - GCP storage
+
+### System Operations
+- **Local Operations** - File system and system ops
+- **Docker** - Container management
+- **Kubernetes** - Cluster operations
+
+## 🤖 Agent Types
+
+### Reflection Agent
+Self-improving agent that refines responses through iterative refinement.
+
 ```python
-from mcp_arena.mcp.server import BaseMCPServer
-from mcp_arena.tools.base import tool
+from mcp_arena.agent.reflection import ReflectionAgent
 
-class MyMCPServer(BaseMCPServer):
-    def _register_tools(self):
-        # Register your tools here
-        pass
-
-server = MyMCPServer(name="my-server", description="Custom MCP server")
-server.run()
-```
-
----
-
-## GitHub MCP — Zero Configuration Example
-
-`GitHubMCP` already includes a **rich set of GitHub tools** by default
-(search, repos, issues, PRs, etc.).
-
-```python
-from mcp_arena.presets.github import GithubMCPServer
-
-mcp = GithubMCPServer(
-    token="ghp_xxx"
+agent = ReflectionAgent(
+    name="reflector",
+    instructions="Analyze and refine responses",
+    max_iterations=3
 )
-
-mcp.run(port=8000)
 ```
 
-✔ Tools included by default
-✔ Auth handled internally
-✔ No manual registration required
+### ReAct Agent
+Systematic reasoning and acting cycle for complex problem-solving.
 
----
+```python
+from mcp_arena.agent.react import ReActAgent
 
-## Extending a Preset with Custom Tools
+agent = ReActAgent(
+    name="react-agent",
+    instructions="Systematically solve problems",
+    max_steps=10
+)
+```
 
-You can **add or override tools** when needed.
+### Planning Agent
+Goal decomposition and step-by-step execution for complex tasks.
+
+```python
+from mcp_arena.agent.planning import PlanningAgent
+
+agent = PlanningAgent(
+    name="planner",
+    instructions="Plan and execute complex workflows"
+)
+```
+
+### Router Agent
+Dynamic agent selection based on task requirements.
+
+```python
+from mcp_arena.agent.router import RouterAgent
+
+router = RouterAgent(
+    name="router",
+    agents=[react_agent, reflect_agent],
+    selection_strategy="auto"
+)
+```
+
+## 🔧 Custom Tools
+
+Extend any preset with custom tools:
 
 ```python
 from mcp_arena.presets.github import GithubMCPServer
 from mcp_arena.tools.base import tool
 
-@tool(description="Custom repo analyzer")
-def analyze_repo(repo: str):
+@tool(description="Custom repository analyzer")
+def analyze_repo(repo: str) -> str:
     return f"Analysis for {repo}"
 
-mcp = GithubMCPServer(
-    token="ghp_xxx",
+server = GithubMCPServer(
+    token="your_token",
     extra_tools=[analyze_repo]
 )
-
-mcp.run()
 ```
 
-Presets are **extensible, not rigid**.
+## 🏗️ Custom MCP Server
 
----
-
-## MCP Server Without Presets (Low-level Use)
-
-If you want full control, you can build directly on the MCP server.
+Build from scratch for full control:
 
 ```python
 from mcp_arena.mcp.server import BaseMCPServer
 from mcp_arena.tools.base import tool
 
 @tool(description="Search internal docs")
-def search_docs(query: str):
+def search_docs(query: str) -> str:
     return f"Results for {query}"
 
-class DocsMCPServer(BaseMCPServer):
+class CustomMCPServer(BaseMCPServer):
     def _register_tools(self):
         self.add_tool(search_docs)
 
-server = DocsMCPServer(
-    name="docs-mcp",
-    description="MCP server for internal documentation"
+server = CustomMCPServer(
+    name="custom-server",
+    description="Custom MCP server"
 )
-
 server.run()
 ```
 
-This is useful for:
+## 📖 Documentation
 
-* internal systems
-* custom data sources
-* experimental MCP servers
-
----
-
-## Using Agents for Intelligent Orchestration
-
-Agents provide **intelligent tool orchestration** with built-in reasoning capabilities.
-
-### Reflection Agent
-Self-improving agent that refines responses through multiple iterations:
-
-```python
-from mcp_arena.presets.github import GithubMCPServer
-from mcp_arena.agent.reflection import ReflectionAgent
-
-agent = ReflectionAgent(
-    name="github-reflector",
-    instructions="Help users explore repositories with self-refinement",
-    max_iterations=3
-)
-
-mcp = GithubMCPServer(
-    token="ghp_xxx",
-    agents=[agent]
-)
-
-mcp.run()
-```
-
-### ReAct Agent
-Reasoning and acting cycle for systematic problem-solving:
-
-```python
-from mcp_arena.agent.react import ReActAgent
-
-agent = ReActAgent(
-    name="github-react",
-    instructions="Systematically analyze GitHub repositories",
-    max_steps=10
-)
-```
-
-### Planning Agent
-Goal decomposition and step-by-step execution:
-
-```python
-from mcp_arena.agent.planning import PlanningAgent
-
-agent = PlanningAgent(
-    name="github-planner",
-    instructions="Plan and execute complex repository analysis tasks"
-)
-```
-
-### Router Agent
-Dynamic agent selection based on task requirements:
-
-```python
-from mcp_arena.agent.router import RouterAgent
-from mcp_arena.agent.react import ReActAgent
-from mcp_arena.agent.reflection import ReflectionAgent
-
-# Create specialized agents
-react_agent = ReActAgent(name="react-agent")
-reflect_agent = ReflectionAgent(name="reflect-agent")
-
-# Router selects the best agent for each task
-router = RouterAgent(
-    name="github-router",
-    agents=[react_agent, reflect_agent],
-    selection_strategy="auto"
-)
-```
-
-If you remove agents:
-
-* MCP server still runs
-* tools are still exposed
-* behavior remains stable
-
----
-
-## Architecture Overview
+### Architecture
 
 ```
 MCP Client
    │
    ▼
-┌──────────────────────────┐
-│        MCP Server        │  ← Core Layer
-│  - Protocol & Transport  │
-│  - Tool Registry         │
-│  - Auth & Security       │
-└──────────────────────────┘
-            │
-            ▼
-┌──────────────────────────┐
-│      Agent System        │  ← Intelligence Layer
-│  - Reflection Agent      │
-│  - ReAct Agent           │
-│  - Planning Agent        │
-│  - Router Agent          │
-│  - Memory & Policies     │
-└──────────────────────────┘
-            │
-            ▼
-┌──────────────────────────┐
-│     Tool Ecosystem       │  ← Execution Layer
-│  - Domain Presets        │
-│  - Custom Tools          │
-│  - Tool Orchestration    │
-└──────────────────────────┘
+┌─────────────────┐
+│   MCP Server    │  ← Core Layer
+│ - Protocol      │
+│ - Auth          │
+│ - Tool Registry │
+└─────────────────┘
+   │
+   ▼
+┌─────────────────┐
+│  Agent System   │  ← Intelligence Layer
+│ - Reflection    │
+│ - ReAct         │
+│ - Planning      │
+│ - Router        │
+└─────────────────┘
+   │
+   ▼
+┌─────────────────┐
+│ Tool Ecosystem  │  ← Execution Layer
+│ - Presets       │
+│ - Custom Tools  │
+│ - Orchestration │
+└─────────────────┘
 ```
 
----
+### Installation Options
 
-## Design Philosophy
+```bash
+# Core only
+pip install mcp-arena[core]
 
-* **MCP servers should work out of the box** - Zero configuration for common use cases
-* **Presets include real, useful tools** - Production-ready, not toy examples
-* **Agents provide intelligent orchestration** - Smart tool usage and reasoning
-* **Built on SOLID principles** - Maintainable, extensible architecture
-* **Defaults over configuration** - Sensible defaults, customization when needed
-* **Minimal boilerplate, maximum clarity** - Clean, intuitive APIs
-* **Composable architecture** - Mix and match components freely
+# Development platforms
+pip install mcp-arena[github,gitlab,bitbucket]
 
----
+# Data & storage
+pip install mcp-arena[postgres,mongodb,redis,vectordb]
 
-## Roadmap
+# Communication
+pip install mcp-arena[slack,discord,teams]
 
-### 🚧 Near Term (v0.2)
-* [ ] Full MCP HTTP / stdio transport support
-* [ ] Streaming responses and real-time updates
-* [ ] Enhanced error handling and logging
-* [ ] Performance optimizations
+# Productivity
+pip install mcp-arena[notion,confluence,jira]
 
-### 🎯 Medium Term (v0.3)
-* [ ] More built-in presets (GitLab, Discord, Azure)
-* [ ] Tool permission policies and security
-* [ ] Agent supervision and monitoring
-* [ ] Memory integrations (RAG, vector stores)
+# Cloud services
+pip install mcp-arena[aws,azure,gcp]
 
-### 🚀 Long Term (v1.0)
-* [ ] Graph-based agent workflows
-* [ ] Multi-agent collaboration patterns
-* [ ] Advanced observability and debugging
-* [ ] Enterprise features (SSO, audit logs)
+# System operations
+pip install mcp-arena[local_operation,docker,kubernetes]
 
-### 🤝 Contributing
-We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) for details.
+# Agent framework
+pip install mcp-arena[agents]
 
-**Priority areas:**
+# All presets
+pip install mcp-arena[all]
+
+# Complete with dev tools
+pip install mcp-arena[complete]
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/SatyamSingh8306/mcp_arena.git
+cd mcp_arena
+
+# Install in development mode
+pip install -e .[dev]
+
+# Run tests
+pytest
+
+# Run linting
+black .
+isort .
+mypy .
+```
+
+### Priority Areas
+
 - New preset implementations
-- Agent pattern improvements
+- Agent pattern improvements  
 - Documentation and examples
 - Bug fixes and performance
 
----
+## 📋 Requirements
 
-## Status
+- Python 3.12+
+- MCP client compatible with Model Context Protocol v1.0+
 
-🚧 **Early-stage (v0.1.0)** - Core functionality is stable and tested
+## 📄 License
 
-✅ **Working Features:**
-- MCP server base classes and utilities
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🔗 Links
+
+- [Documentation](https://github.com/SatyamSingh8306/mcp_arena)
+- [Repository](https://github.com/SatyamSingh8306/mcp_arena.git)
+- [Issues](https://github.com/SatyamSingh8306/mcp_arena/issues)
+- [PyPI](https://pypi.org/project/mcp-arena/)
+
+## 🚧 Status
+
+**Version:** 0.1.0 (Early-stage)
+
+✅ **Stable Features:**
+- MCP server base classes
 - 10+ production-ready presets
-- 4 agent types (Reflection, ReAct, Planning, Router)
-- Tool creation and registration
-- SOLID architecture implementation
+- 4 agent types
+- Tool registration system
+- SOLID architecture
 
 🔄 **Evolving APIs:**
-- Agent interfaces may be enhanced based on feedback
+- Agent interfaces may enhance based on feedback
 - New preset additions
 - Performance optimizations
 
-📈 **Adoption Ready:**
-- Production use cases supported
+📈 **Production Ready:**
 - Comprehensive documentation
-- Active development and support
-
-**Feedback and contributions are welcome!** 🎉
-
----
-
-## License
-
-MIT
+- Active development
+- Community support
 
 
