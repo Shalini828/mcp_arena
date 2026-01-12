@@ -11,7 +11,7 @@ import atexit
 import sys
 
 from langchain_core.tools import BaseTool
-from langchain.agents import AgentExecutor, create_agent
+from langchain.agents import create_agent
 from langchain_core.runnables import Runnable, RunnablePassthrough
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -326,7 +326,7 @@ if __name__ == "__main__":
         system_prompt: Optional[str] = None,
         verbose: bool = True,
         **kwargs
-    ) -> AgentExecutor:
+    ):
         """
         Create a ReAct agent with the MCP tools.
         
@@ -334,10 +334,8 @@ if __name__ == "__main__":
             llm: LangChain chat model instance
             system_prompt: Optional custom system prompt
             verbose: Whether to show agent thinking
-            **kwargs: Additional arguments for AgentExecutor
-            
-        Returns:
-            An AgentExecutor
+            **kwargs: Additional arguments for mcp_arena  
+        
         """
         if not self.connected:
             raise RuntimeError("Not connected to servers. Call connect() first.")
