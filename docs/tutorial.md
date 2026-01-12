@@ -50,7 +50,7 @@ import os
 import asyncio
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_groq import ChatGroq
-from langchain.agents import create_agent, AgentExecutor
+from langchain.agents import create_agent
 from langgraph.prebuilt import create_react_agent
 
 # 1. Initialize the MCP Client
